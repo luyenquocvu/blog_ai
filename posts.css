@@ -11,3 +11,17 @@
     line-height: 2.0;
     font-family: Arial;
 }
+
+.link {
+    position: fixed;
+    margin-top: 20%;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid black;
+    transform: rotate(270deg);
+}
+.link:hover {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 30px solid black;
+}
