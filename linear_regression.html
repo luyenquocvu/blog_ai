@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linear Regression</title>
     <link rel="stylesheet" href="posts.css">
-
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
 
@@ -16,13 +17,91 @@
 
 
     <div class="container">
-        <h1>
+        <h1 class="title">
             Linear Regression
         </h1>
-        <p>
-            Function for algorithms : x1*w1 + x2*w2 + x3*w3 + w0 = y(hat)<br><br>
-            Function for a data point : X*W.T
+        <br>
+        <br>
+        <h2>
+            1. Data
+        </h2>
+        <p class="paragraph-1">
+            $$
+
+            \mathbf{X} = 
+            \begin{bmatrix}
+            x_{1,1} & x_{1,2} & \cdots & x_{1,d} \\
+            x_{2,1} & x_{2,2} & \cdots & x_{2,d} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{n,1} & x_{n,2} & \cdots & x_{n,d} 
+            \end{bmatrix}
+
+            \quad
+
+            \mathbf{Y} = 
+            \begin{bmatrix}
+            y_1 \\
+            y_2 \\
+            \vdots & \\
+            y_n
+            \end{bmatrix}
+
+            $$  
         </p>
+        <p class="paragraph-1">
+            <b>Notice</b> : <b>n</b> is the number of data points and <b>d</b> is the number of dimension
+        </p>
+        <br>
+        <h2>
+            2. Model
+        </h2>
+        <p class="paragraph-1">
+            Function for a data point :
+        </p>
+        <p class="paragraph-1">
+            $$ f(x) = \hat y \approx y $$
+            $$ \, $$
+            $$ \hat y = x_1w_1 + x_2w_2 + x_3w_3\: + \:...\: + \:x_dw_d + w_0 $$
+        </p>
+        <br>
+        <h2>
+            3. Mathematics
+        </h2>
+        <p class="paragraph-1">
+            We have vector <b>x</b> for a data point : $$ \mathbf{x} = [1,\: x_1,\: x_2,\: x_3,\: ...,\: x_d] $$
+        </p>
+        <p class="paragraph-1">
+            We have vector <b>w</b> : $$ \mathbf{w} = [w_0,\: w_1,\: w_2,\: w_3,\: ...,\: w_d]^T $$
+        </p>
+        <p class="paragraph-1">
+            So : $$ \hat y = \mathbf{x}\mathbf{w} $$
+        </p>
+        <p class="paragraph-1">
+            Loss Function for a data point : 
+            $$ L(\mathbf{w}) = \hat y - y $$
+            $$ = (\hat y - y)^2 $$
+            $$ = \dfrac{1}{2} (\hat y - y)^2 $$
+            $$ = \dfrac{1}{2} (\mathbf{x}\mathbf{w} - y)^2 $$
+        </p>
+        <p class="paragraph-1">
+            Loss Function for all data points :     
+            $$ L(\mathbf{w}) = \dfrac{1}{2} \sum_{i=0}^{N} (\mathbf{x_i}\mathbf{w} - y_i)^2 $$
+            $$ = \dfrac{1}{2} \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 $$
+            $$ \Rightarrow \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
+        </p>
+        <p class="paragraph-1">
+            Solve by the derivative method :<br>
+            Using this gradient formula :
+            $$ (\: \| \mathbf{A}\mathbf{x} - \mathbf{b} \|_2^2 \:)' = 2\mathbf{A}^T(\mathbf{A} \mathbf{x} - \mathbf{b}) $$
+            So :
+            $$ \dfrac{\partial L(\mathbf{w})}{\partial \mathbf{w}} = \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) $$
+            Solve by the zezo derivative method :
+            $$ \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) = 0 $$
+            $$ \mathbf{X}^T \mathbf{X} \mathbf{w} = \mathbf{X}^T \mathbf{y} $$
+            $$ (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{X} \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y} $$
+            $$ \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y} $$
+        </p>
+
     </div>
 
 
