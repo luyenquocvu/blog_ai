@@ -52,9 +52,9 @@
         <p class="paragraph-1">
             <b>Notice</b> : <b>n</b> is the number of data points and <b>d</b> is the number of dimensions
         </p>
-        <br>
+        <br><br>
         <h2>
-            2. Model
+            2. Function for prediction
         </h2>
         <p class="paragraph-1">
             <b>Function for a data point :</b>  
@@ -64,7 +64,7 @@
             $$ \, $$
             $$ \hat y = x_1w_1 + x_2w_2 + x_3w_3\: + \:...\: + \:x_dw_d + w_0 $$
         </p>
-        <br>
+        <br><br>
         <h2>
             3. Mathematics
         </h2>
@@ -81,42 +81,106 @@
             <b>Loss Function for a data point : </b>
             $$ L(\mathbf{w}) = \hat y - y $$
             $$\qquad \quad \:\:\:\: = (\hat y - y)^2 $$
-            $$\qquad \qquad \:\:\:\: = \dfrac{1}{2} (\hat y - y)^2 $$
-            $$\qquad \qquad \qquad = \dfrac{1}{2} (\mathbf{x}\mathbf{w} - y)^2 $$
+            $$\qquad \qquad \quad = (\mathbf{x}\mathbf{w} - y)^2 $$
         </p>
+        <br>
+        <h2>
+            3.1 Ordinary Least Squares Regression
+        </h2>
         <p class="paragraph-1">
             <b>Loss Function for all data points :   </b>  
-            $$ L(\mathbf{w}) = \dfrac{1}{2} \sum_{i=0}^{N} (\mathbf{x_i}\mathbf{w} - y_i)^2 $$
+            $$ L(\mathbf{w}) = \dfrac{1}{2} \sum_{i=1}^{N} (\mathbf{x_i}\mathbf{w} - y_i)^2 $$
             $$\quad = \dfrac{1}{2} \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 $$
             So :
             $$ \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
         </p>
         <br>
         <p class="paragraph-1">
-            <b>Solve by the gradient method : </b><br>
-            Using this gradient formula :
-            $$ (\: \| \mathbf{A}\mathbf{x} - \mathbf{b} \|_2^2 \:)' = 2\mathbf{A}^T(\mathbf{A} \mathbf{x} - \mathbf{b}) $$
-            So :
+            <b>Solving the gradient of Loss Function : </b><br>
             $$ \dfrac{\partial L(\mathbf{w})}{\partial \mathbf{w}} = \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) $$
-            <b>Solve by the zezo gradient method :</b>
-            $$ \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) = 0 $$
-            $$ \qquad \qquad \: \mathbf{X}^T \mathbf{X} \mathbf{w} = \mathbf{X}^T \mathbf{y} $$
-            $$ \qquad \qquad \: (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{X} \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y} $$
-            $$ \qquad \qquad \qquad \qquad \qquad \:\:\:\: \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y}$$
+            <b>Solving parameters by the zero gradient solution :</b>
+            $$ \:\:\: \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) = 0 $$
+            $$ \mathbf{X}^T \mathbf{X} \mathbf{w} - \mathbf{X}^T \mathbf{y} = 0 $$
+            $$ \qquad \qquad \:\:\:\: \mathbf{X}^T \mathbf{X} \mathbf{w} = \mathbf{X}^T \mathbf{y} $$
+            $$ \qquad \qquad \:\:\:\: (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{X} \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y} $$
+            $$ \qquad \qquad \qquad \qquad \qquad \:\:\:\:\:\:\: \mathbf{w} = (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y}$$
         </p>
+        <br>
+        <h2>
+            3.2 Ridge Regression (L2 Regularization)
+        </h2>
+        <p class="paragraph-1">
+            <b>Loss Function for all data points :   </b>  
+            $$ L(\mathbf{w}) = \sum_{i=1}^{n} (\mathbf{x_i}\mathbf{w} - y_i)^2 + \alpha \sum_{j=0}^{d} w_i^2 $$
+            $$\:\: = \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 + \alpha \| \mathbf{w} \|_2^2  $$
+            So :
+            $$ \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
+        </p>
+        <br>
+        <p class="paragraph-1">
+            <b>Solving the gradient of Loss Function : </b><br>
+            $$ \dfrac{\partial L(\mathbf{w})}{\partial \mathbf{w}} = 2 \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) + 2 \alpha \mathbf{w} $$
+            <b>Solving parameters by the zero gradient solution :</b>
+            $$ 2 \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) + 2 \alpha \mathbf{w} = 0 $$
+            $$ \quad \mathbf{X}^T(\mathbf{X} \mathbf{w} - \mathbf{y}) + \alpha \mathbf{w} = 0 $$
+            $$ \:\: \mathbf{X}^T \mathbf{X} \mathbf{w} - \mathbf{X}^T \mathbf{y} + \alpha \mathbf{w} = 0$$
+            $$ \qquad \qquad \quad \:\:  \mathbf{X}^T \mathbf{X} \mathbf{w} + \alpha \mathbf{w} = \mathbf{X}^T \mathbf{y} $$
+            $$ \qquad \qquad \quad (\mathbf{X}^T \mathbf{X} + \alpha I) \mathbf{w} = \mathbf{X}^T \mathbf{y} $$ 
+            $$ \qquad \qquad \quad (\mathbf{X}^T \mathbf{X} + \alpha I)^{-1} (\mathbf{X}^T \mathbf{X} + \alpha I) \mathbf{w} = (\mathbf{X}^T \mathbf{X} + \alpha I)^{-1} \mathbf{X}^T \mathbf{y} $$ 
+            $$ \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \mathbf{w} = (\mathbf{X}^T \mathbf{X} + \alpha I)^{-1} \mathbf{X}^T \mathbf{y} $$
+        </p>
+
+        <br>
+        <h2>
+            3.3 Lasso Regression (L1 Regularization)
+        </h2>
+        <p class="paragraph-1">
+            <b>Loss Function for all data points :   </b>  
+            $$ L(\mathbf{w}) = \sum_{i=1}^{n} (\mathbf{x_i}\mathbf{w} - y_i)^2 + \alpha \sum_{j=0}^{d} |w_i| $$
+            $$\:\: = \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 + \alpha \| \mathbf{w} \|_1  $$
+            So :
+            $$ \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
+            <b>Solving parameters :</b> It can't be solved because the derivative of the absolute is undefined at zero and we can't ignore the point equals zero, it's important.
+        </p>
+
+        <br>
+        <h2>
+            3.4 ElasticNet Regression
+        </h2>
+        <p class="paragraph-1">
+            <b>Loss Function for all data points :   </b>  
+            $$ L(\mathbf{w}) = \sum_{i=1}^{n} (\mathbf{x_i}\mathbf{w} - y_i)^2 + \alpha_1 \sum_{j=0}^{d} |w_i|  + \alpha_2 \sum_{j=0}^{d} w_i^2  $$
+            $$\:\: = \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 + \alpha_1 \| \mathbf{w} \|_1 + \alpha_2 \| \mathbf{w} \|_2  $$
+            So :
+            $$ \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
+            <b>Solving parameters :</b> It can't be solved again.
+        </p>
+
+        <br>
+        <br>
+        <br>
         <br>
         <h2>
             4. Data - Model - Prediction
         </h2>
         <p class="paragraph-1">
             <b>Data : </b>
-            $$data \quad \mathbf{X}(N \times d) \quad and \quad target \quad \mathbf{y}(N \times 1)  $$
-            <b>Model : </b>
-            $$ (\mathbf{X}^T \mathbf{X})^{-1} \: \mathbf{X}^T \mathbf{y} $$
-            out put is $$ \mathbf{w}(d \times 1) $$
+            $$data \quad \mathbf{X}(n \times d) \quad and \quad target \quad \mathbf{y}(n \times 1)  $$
+            <br>
+            <b>Model: Choosing model and training :</b>
+            output after training: $$ \mathbf{w}(d \times 1) $$
+            <br>
             <b>Prediction :</b>
             $$ \hat y = x_1w_1 + x_2w_2 + x_3w_3\: + \:...\: + \:x_dw_d + w_0 $$
         </p>
+
+        <br>
+        <h2>
+            5. Pseudo inverse matrix
+        </h2>
+        <h3>
+            Pseudo inverse is solution when the inverse matrix can't be calculated
+        </h3>
     </div>
 
 
