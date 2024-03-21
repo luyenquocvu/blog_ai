@@ -5,11 +5,13 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Linear Regression</title>
     <link rel="stylesheet" href="posts.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+    
 </head>
 
 
@@ -39,7 +41,7 @@
 
             \quad
 
-            \mathbf{Y} = 
+            \mathbf{y} = 
             \begin{bmatrix}
             y_1 \\
             y_2 \\
@@ -150,7 +152,7 @@
         <p class="paragraph-1">
             <b>Loss Function for all data points :   </b>  
             $$ L(\mathbf{w}) = \sum_{i=1}^{n} (\mathbf{x_i}\mathbf{w} - y_i)^2 + \alpha_1 \sum_{j=0}^{d} |w_i|  + \alpha_2 \sum_{j=0}^{d} w_i^2  $$
-            $$\:\: = \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 + \alpha_1 \| \mathbf{w} \|_1 + \alpha_2 \| \mathbf{w} \|_2  $$
+            $$\:\: = \| \mathbf{X}\mathbf{w} - \mathbf{y} \|_2^2 + \alpha_1 \| \mathbf{w} \|_1 + \alpha_2 \| \mathbf{w} \|_2^2  $$
             So :
             $$ \mathbf{w} = \arg\min_{\mathbf{w}} L(\mathbf{w}) $$
             <b>Solving parameters :</b> It can't be solved again.
@@ -161,10 +163,10 @@
         <br>
         <br>
         <h2>
-            4. Data - Model - Prediction
+            4. Input - Model - Training - Prediction
         </h2>
         <p class="paragraph-1">
-            <b>Data : </b>
+            <b>Input : </b>
             $$data \quad \mathbf{X}(n \times d) \quad and \quad target \quad \mathbf{y}(n \times 1)  $$
             <br>
             <b>Model: Choosing model and training :</b>

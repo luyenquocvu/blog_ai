@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>K-Nearest Neighbors</title>
+    <link rel="stylesheet" href="posts.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+
+
+<body>
+    <a class="link" href="index.html">
+        
+    </a>
+    <div class="container-posts">
+        <h1 class="title">
+            K-Means Clustering
+        </h1>
+        <br>
+        <br>
+        <h2>
+            1. Data
+        </h2>
+        <p class="paragraph-1">
+            $$
+
+            \mathbf{X} = 
+            \begin{bmatrix}
+            x_{1,1} & x_{1,2} & \cdots & x_{1,d} \\
+            x_{2,1} & x_{2,2} & \cdots & x_{2,d} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{n,1} & x_{n,2} & \cdots & x_{n,d} 
+            \end{bmatrix}
+
+            $$  
+        </p>
+        <p class="paragraph-1">
+            <b>Notice</b> : <b>n</b> is the number of data points and <b>d</b> is the number of dimensions
+        </p>
+        <br>
+        <br>
+
+        <h2>
+            2. Mathematics
+        </h2>
+        <p class="paragraph-1">
+            <b>Data : </b> \( \mathbf{X} = [x_1, x_2, x_3, ..., x_n]^T \)
+            <br>
+            <b>Center : </b> \( \mathbf{m} = [m_1, m_2, m_3, ..., m_n]^T \)
+            <br>
+            <b>Label (one-hot) : </b>
+            $$\sum_{k=1}^{K} y_{ik} = 1 \quad y_{ik} \in (0, 1) \quad \forall (i, k)$$
+            <b>Loss Function :</b>
+            <br>
+            Loss Function for a data point
+            $$ \mathbf{Loss(m)} = \| \mathbf{x}_i - \mathbf{m}_k \|_2^2 $$
+            $$ \: \mathbf{Loss(y, m)} = y_{ik} \| \mathbf{x}_i - \mathbf{m}_k \|_2^2 $$
+            $$ \quad \:\:\: \mathbf{Loss(y, m)} = \sum_{j=1}^{K} y_{ij} \| \mathbf{x}_i - \mathbf{m}_j \|_2^2 $$
+            Loss Function for all data points
+            $$ \mathbf{Loss(Y, M)} = \sum_{i=1}^{N} \sum_{j=1}^{K} y_{ij} \| \mathbf{x}_i - \mathbf{m}_j \|_2^2 $$
+            So :
+            $$ \mathbf{Y, M} = \arg\min_{\mathbf{Y, M}} \mathbf{Loss(Y, M)} $$
+            $$ y_{ij} \in (0, 1) \quad \forall (i, j) \quad \sum_{j=1}^{K} y_{ij} = 1 \quad \forall i $$
+            <b>Solving : </b>
+            <br>
+            <b>Suppose there was M and find Y : </b>
+            $$ y_i = \arg\min_{y_i} \sum_{j=1}^{K} y_{ij} \| \mathbf{x_i} - \mathbf{m_j} \|_2^2 $$
+            So :
+            $$ j = \arg\min_{j} \| \mathbf{x}_i - \mathbf{m}_j \|_2^2 $$
+            <b>Suppose there was Y and find M : </b>
+            $$ \mathbf{m}_j = \arg\min_{\mathbf{m}_j } \sum_{i=1}^{N} y_{ij} \| \mathbf{x}_i - \mathbf{m}_j \|_2^2 $$
+            <b>Gradient :</b>
+            $$ \dfrac{\partial L(\mathbf{m}_j)}{\partial \mathbf{m}_j} = 2 \sum_{i=1}^{N} y_{ij} (\mathbf{x}_i - \mathbf{m}_j) $$
+            <b>Gradient = 0 :</b>
+            $$ \:\:\:\:\: 2 \sum_{i=1}^{N} y_{ij} (\mathbf{x}_i - \mathbf{m}_j) = 0 $$
+            $$ \qquad \sum_{i=1}^{N} y_{ij} (\mathbf{x}_i - \mathbf{m}_j) = 0 $$
+            $$ \: \sum_{i=1}^{N} y_{ij} \mathbf{x}_i - \sum_{i=1}^{N} y_{ij} \mathbf{m}_j = 0 $$
+            $$ \qquad\qquad\qquad\qquad\:\: - \sum_{i=1}^{N} y_{ij} \mathbf{m}_j = - \sum_{i=1}^{N} y_{ij} \mathbf{x}_i $$
+            $$ \qquad\qquad\qquad\qquad\qquad\qquad\:\:\: \mathbf{m}_j = \dfrac{\sum_{i=1}^{N} y_{ij} \mathbf{x}_i}{\sum_{i=1}^{N} y_{ij}} $$        
+        </p>
+        <br>
+        <br>
+
+        <h2>
+            4. Input - Model - Training
+        </h2>
+        <p class="paragraph-1">
+            <b>Input :</b>
+            $$ Data \quad \mathbf{X} (n*d) \quad and \quad k(cluster)$$
+            <b>Model :</b>
+            <br>
+            - <b>Step 1</b> : Choosing random k center
+            <br>
+            - <b>Step 2</b> : Update label for each data point
+            <br>
+            - <b>Step 3</b> : Update center
+            <br>
+            - <b>Step 4</b> : Checking : if new center equals old center : break - else : back to step 2 
+            <br>
+            <br>
+            <b>Training :</b>
+            Output : <b>Center</b> (k*d) and <b>Label</b> (1*n)
+        </p>
+    </div>
+
+</body>
+
+
+</html>

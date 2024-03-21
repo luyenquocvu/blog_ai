@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>K-Nearest Neighbors</title>
+    <link rel="stylesheet" href="posts.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+</head>
+
+
+<body>
+    <a class="link" href="index.html">
+        
+    </a>
+    <div class="container-posts">
+        <h1 class="title">
+            K-Nearest Neighbors
+        </h1>
+        <br>
+        <br>
+        <h2>
+            1. Data
+        </h2>
+        <p class="paragraph-1">
+            $$
+
+            \mathbf{X} = 
+            \begin{bmatrix}
+            x_{1,1} & x_{1,2} & \cdots & x_{1,d} \\
+            x_{2,1} & x_{2,2} & \cdots & x_{2,d} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{n,1} & x_{n,2} & \cdots & x_{n,d} 
+            \end{bmatrix}
+
+            \quad
+
+            \mathbf{y} = 
+            \begin{bmatrix}
+            y_1 \\
+            y_2 \\
+            \vdots & \\
+            y_n
+            \end{bmatrix}
+
+            $$  
+        </p>
+        <p class="paragraph-1">
+            <b>Notice</b> : <b>n</b> is the number of data points and <b>d</b> is the number of dimensions
+        </p>
+        <br>
+        <br>
+
+        <h2>
+            2. Input - Model - Training - Prediction
+        </h2>
+        <p class="paragraph-1">
+            <b>Input : </b>
+             $$data \:\: \mathbf{X}(n \times d) \:\: , \:\: label \:\: \mathbf{y}(n \times 1) \:\: and \:\: k \:\: (nearest \:\: points)  $$
+            <br>
+            <b>Model:</b>
+             $$ Saving \:\: data \:\: \mathbf{X} \:\:, \:\: label\:\: \mathbf{y} \:\: and \:\: k$$
+            <br>
+            <b>Training:</b>
+             $$ Saved \:\: data \:\: \mathbf{X} \:\:, \:\: label\:\: \mathbf{y} \:\: and \:\: k$$
+            <br>
+            <br>
+            <b>Prediction for a new data point  (\(\mathbf{z}\))    :</b>
+            <br>
+            Caculating distance from a new data (\(\mathbf{z}\)) to each data (\(\mathbf{x_i}\)) 
+            $$
+
+            \mathbf{z} = 
+            \begin{bmatrix}
+            z_{1} & z_{2} & \cdots & z_{d}
+            \end{bmatrix}
+
+            \qquad
+
+            \mathbf{X} = 
+            \begin{bmatrix}
+            x_{1,1} & x_{1,2} & \cdots & x_{1,d} \\
+            x_{2,1} & x_{2,2} & \cdots & x_{2,d} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{n,1} & x_{n,2} & \cdots & x_{n,d} 
+            \end{bmatrix}
+
+            \Rightarrow
+
+            \mathbf{distance} = 
+            \begin{bmatrix}
+            \mathbf{z}-\mathbf{x}_1 \\
+            \mathbf{z}-\mathbf{x}_2  \\
+            \vdots  \\
+            \mathbf{z}-\mathbf{x}_n 
+            \end{bmatrix}
+
+            $$  
+            Chosing label of (\(\mathbf{z}\)) based on (k) nearest (\(\mathbf{x_i}\))
+            
+        </p>
+
+        <br>
+        <br>
+        <h2>
+            3. Caculating the distance (L2)
+        </h2>
+        <p class="paragraph-1">
+            $$ \mathbf{D} =  \| \mathbf{z}- \mathbf{x_i} \|_2^2 $$
+            $$ \qquad \qquad \:\:  = (\mathbf{z}- \mathbf{x_i})(\mathbf{z}- \mathbf{x_i})^T $$
+            $$ \qquad \qquad \qquad \qquad \:\:\:  = \mathbf{z} \mathbf{z}^T - \mathbf{z} \mathbf{x_i}^T - \mathbf{x_i}\mathbf{z}^T + \mathbf{x_i}\mathbf{x_i}^T $$
+            $$  \qquad \qquad \qquad \: = \| \mathbf{z} \|_2^2 + \| \mathbf{x_i} \|_2^2 - 2\mathbf{z}\mathbf{x_i}^T $$
+            <b>Notice : </b> We can ignore \(\|\mathbf{z}\|_2^2\) and calculate \(\|\mathbf{x_i}\|_2^2\) before to save time of computing
+        </p>
+    </div>
+
+</body>
+
+
+</html>
